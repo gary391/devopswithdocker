@@ -32,3 +32,17 @@ Remember to replace c7749cf989f6 with the actual ID of your container. If you wa
 So, in summary, if you want to avoid the command line appearing to freeze after pulling and starting a container, use the -d flag to run it in detached mode and observe its status with docker container ls from another terminal.
 
 ---
+###Most used commands
+
+| command                               | explain                                 | shorthand     |
+| ------------------------------------- | --------------------------------------- | ------------- |
+| docker image ls                       | Lists all images                        | docker images |
+| docker image rm `<image>`           | Removes an image                        | docker rmi    |
+| docker image pull `<image>`         | Pulls image from a docker registry      | docker pull   |
+| docker container ls -a                | Lists all containers                    | docker ps -a  |
+| docker container run `<image>`      | Runs a container from an image          | docker run    |
+| docker container rm `<container>`   | Removes a container                     | docker rm     |
+| docker container stop `<container>` | Stops a container                       | docker stop   |
+| docker container exec `<container>` | Executes a command inside the container | docker exec   |
+
+---
