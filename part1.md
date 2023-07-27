@@ -46,3 +46,84 @@ So, in summary, if you want to avoid the command line appearing to freeze after 
 | docker container exec `<container>` | Executes a command inside the container | docker exec   |
 
 ---
+Q: How to keep a docker container running ?
+
+https://www.baeldung.com/ops/running-docker-containers-indefinitely#:~:text=The%20simplest%20way%20to%20keep,a%20command%20that%20never%20ends.&text=We%20can%20use%20never%2Dending,in%20the%20docker%20run%20command
+
+`docker run -d -t ubuntu`
+
+---
+Q: What to do if you are getting this error ?
+`
+docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
+See 'docker run --help'.`
+
+A: If you are using mac, make sure you have the docker.app running 
+
+---
+
+####EXERCISE 1.3: SECRET MESSAGE
+```
+Now that we've warmed up it's time to get inside a container while it's running!
+
+Image devopsdockeruh/simple-web-service:ubuntu will start a container that outputs logs into a file. Go inside the container and use tail -f ./text.log to follow the logs. Every 10 seconds the clock will send you a "secret message".
+
+Submit the secret message and command(s) given as your answer.
+```
+#### EXERCISE 1.3: SECRET MESSAGE - Solution and notes
+```
+`docker run devopsdockeruh/simple-web-service:ubuntu` --> this command will run the container
+
+% docker exec -it lucid_pare bash
+root@ab884e2764d5:/usr/src/app# tail -f ./text.log
+2023-07-27 15:17:41 +0000 UTC
+2023-07-27 15:17:43 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2023-07-27 15:17:45 +0000 UTC
+```
+---
+#### EXERCISE 1.4: MISSING DEPENDENCIES
+
+
+Start a Ubuntu image with the process sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website; done'
+
+If you're on Windows, you'll want to switch the ' and " around: sh -c "while true; do echo 'Input website:'; read website; echo 'Searching..'; sleep 1; curl http://$website; done".
+
+You will notice that a few things required for proper execution are missing. Be sure to remind yourself which flags to use so that the container actually waits for input.
+
+Note also that curl is NOT installed in the container yet. You will have to install it from inside of the container.
+
+Test inputting helsinki.fi into the application. It should respond with something like
+```
+<html>
+  <head>
+    <title>301 Moved Permanently</title>
+  </head>
+
+  <body>
+    <h1>Moved Permanently</h1>
+    <p>The document has moved <a href="http://www.helsinki.fi/">here</a>.</p>
+  </body>
+</html>
+```
+This time return the command you used to start process and the command(s) you used to fix the ensuing problems.
+
+Hint for installing the missing dependencies you could start a new process with docker exec.
+
+This exercise has multiple solutions, if the curl for helsinki.fi works then it's done. Can you figure out other (smart) solutions?
+
+#### Solution 1.4
+```
+docker ps
+
+docker exec -it missing-depend sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; echo $website; curl http://$website; done'\n
+
+docker run -d -it --name missing-depend ubuntu sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website; done'\n\n
+
+docker run -it ubuntu sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website; done'\n\n
+
+docker exec -it frosty_golick sh -c 'apt-get update && apt-get -y install curl'
+
+docker exec -it frosty_golick sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website; done'
+
+```
