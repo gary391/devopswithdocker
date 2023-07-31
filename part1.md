@@ -127,3 +127,43 @@ docker exec -it frosty_golick sh -c 'apt-get update && apt-get -y install curl'
 docker exec -it frosty_golick sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website; done'
 
 ```
+---
+#### EXERCISE 1.5: SIZES OF IMAGES
+In the Exercise 1.3 we used devopsdockeruh/simple-web-service:ubuntu.
+
+Here is the same application but instead of Ubuntu is using Alpine Linux: devopsdockeruh/simple-web-service:alpine.
+
+Pull both images and compare the image sizes. Go inside the alpine container and make sure the secret message functionality is the same. Alpine version doesn't have bash but it has sh.
+
+---
+#### ANSWER 1.5
+
+
+---
+
+
+#### EXERCISE 1.6: HELLO DOCKER HUB
+Run docker run -it devopsdockeruh/pull_exercise.
+
+It will wait for your input. Navigate through Docker hub to find the docs and Dockerfile that was used to create the image.
+
+Read the Dockerfile and/or docs to learn what input will get the application to answer a "secret message".
+
+Submit the secret message and command(s) given to get it as your answer.
+
+#### Answer 1.6 
+```
+[gauyada@88665a3748e4][~/WorkDocs/03_KNOWLEDGE/35_DOCKERS/devopswithdocker]% docker run -it devopsdockeruh/pull_exercise
+Unable to find image 'devopsdockeruh/pull_exercise:latest' locally
+latest: Pulling from devopsdockeruh/pull_exercise
+8e402f1a9c57: Pull complete
+5e2195587d10: Pull complete
+6f595b2fc66d: Pull complete
+165f32bf4e94: Pull complete
+67c4f504c224: Pull complete
+Digest: sha256:7c0635934049afb9ca0481fb6a58b16100f990a0d62c8665b9cfb5c9ada8a99f
+Status: Downloaded newer image for devopsdockeruh/pull_exercise:latest
+Give me the password: basics
+You found the correct password. Secret message is:
+"This is the secret message"
+```

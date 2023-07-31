@@ -1,0 +1,3 @@
+# Start from the alphine image
+FROM devopsdockeruh/simple-web-service:alpine
+CMD server
