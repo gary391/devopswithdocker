@@ -167,3 +167,31 @@ Give me the password: basics
 You found the correct password. Secret message is:
 "This is the secret message"
 ```
+
+Q: What is a difference between CMD and ENTRYPOINT ?
+A: https://devtron.ai/blog/cmd-and-entrypoint-differences/#:~:text=CMD%3A%20Sets%20default%20parameters%20that,Docker%20containers%20with%20CLI%20parameters.
+
+---
+Interacting with the container via volumes and ports
+
+Start a container with -v option, that requires an absolute path. We mount our current folder as /mydir in our container, overwriting everything that we have put in that folder in our Dockerfile.
+```
+docker run -v "$(pwd):/mydir" youtube-dl https://imgur.com/JY5tHqr
+```
+
+Here we can port the logs that are being generate in the container to the local machine
+
+```
+docker run -v "$(pwd)/logs/text.log:/usr/src/app/text.log" devopsdockeruh/simple-web-service
+```
+Note also that -v creates a directory if the file does not exist.
+
+---
+
+Allowing external connections into containers
+
+Using this you can connect or access your webserver from your local machine.
+
+```
+docker run -p 127.0.0.1:8443:8080 devopsdockeruh/simple-web-service server
+```
