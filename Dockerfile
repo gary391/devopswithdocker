@@ -1,12 +1,17 @@
-FROM ubuntu:18.04
+# Start from the ubuntu image
+FROM ubuntu:20.04
 
-WORKDIR /mydir
+# Use /usr/src/app as our workdir. The following instructions will be executed in this location.
+WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y curl python 
-RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
-RUN chmod a+x /usr/local/bin/youtube-dl
+# Install curl into that image 
+RUN sh -c 'apt-get update && apt-get -y install curl'
 
-ENV LC_ALL=C.UTF-8
+# Copy the hello.sh file from this location to /usr/src/app/ creating /usr/src/app/curler.sh.
+COPY curler-v2.sh .
 
-ENTRYPOINT ["/usr/local/bin/youtube-dl"]
+# Execute a command with `/bin/sh -c` prefix.
+RUN touch additional.txt
 
+# When running Docker run the command will be ./curler.sh
+ENTRYPOINT ["./curler-v2.sh"]
